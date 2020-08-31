@@ -1,0 +1,36 @@
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+p {
+	text-align: justify;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	color: #000000;
+	font-weight: normal;
+}
+h1 {
+	text-align: center;
+	margin-top: 15px;
+	margin-bottom: 5px;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 18px;
+	color: #000000;
+	font-weight: bold;
+}
+.grafico {
+	margin: 2px 2px 2px 2px;
+}
+.break { page-break-before: always; 
+}
+.container{
+	padding-top: 30px;
+}

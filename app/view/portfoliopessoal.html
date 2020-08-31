@@ -1,0 +1,44 @@
+<div nq-app="myApp" ng-controller="meu_portfolioCtrl" class="container">
+	<div class="col-md-10 col-md-offset-1">
+		<div class="row">
+			<div class="col-md-offset-3">
+				<h1>Contratos Pessoais</h1>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-offset-1 col-md-8">
+				<p class="text-justify">
+					Aqui você pode realizar a entrada dos contratos pessoais, são requisitados quatro dados relacionados a cada contrato: id, preço, montante, sazonalização e flexibilização. São aceitos no máximo 200 contratos e o sistema não aceitará dados inconsistentes.
+				</p>
+			</div>
+		</div>
+		<div ng-show="usuario.status">
+			<div class="row">
+				<div class="col-md-offset-1">
+					<div id="entrada_contratos"  class="hot2 handsontable htColumnHeaders"></div>
+				</div>
+			</div>
+			<div class="row" >
+				<div class="col-md-offset-2" >
+					<button type="button" class="btn button-preto" ng-click="get_portfolio()">
+						<span class="glyphicon glyphicon-upload
+						" aria-hidden="true"></span> Carregar portfólio
+					</button>
+					<button type="button" class="btn button-preto" ng-click="upload_contratos()">
+						<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Salvar portfólio
+					</button>
+					<button type="button" class="btn button-preto" ng-click="delete_contratos()">
+						<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>  Excluir portifólio
+					</button>
+				</div>
+			</div>
+		</div>
+		<div ng-hide="usuario.status" class="alert alert-info col-md-10">
+		<p class="text-center">
+			<strong>Efetue <a ng-click="registro.status=false" data-toggle="modal" data-target="#mylog" class="alert-link">Login</a>!</strong> 
+			<br><br>para utilizar essa ferramenta é necessário efetuar <a data-toggle="modal" ng-click="registro.status=false" data-target="#mylog" class="alert-link">Login</a>, caso ainda não possua, cadastre-se  <a ng-click="registro.status=true" data-toggle="modal"  data-target="#mylog" class="alert-link">Aqui</a> .
+		</p>
+	</div>
+	</div>
+</div>
+

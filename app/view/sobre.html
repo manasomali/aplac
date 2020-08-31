@@ -1,0 +1,181 @@
+<html>
+<head>
+</head>
+<body>
+
+	<div nq-app="myApp" ng-controller="sobreCtrl" class="container">
+		<div class="container-fluid mainPadding">
+			<div class="row">
+				<div class="col-md-10 col-md-offset-1">
+					<div>
+						<h1 class="text-center">Sobre a Aplicativo para Alocação de Contratos (APLAC)</h1>
+						<p class="text-justify">Na conjuntura atual do mercado brasileiro de energia elétrica existem dois ambientes de contratação: regulado e livre. Consumidores potencialmente livres podem escolher a procedência de energia elétrica entre os dois ambientes. A tomada de decisão de escolha entre os ambientes é baseada, principalmente, na análise de histórico de consumo e no custo associado na compra de energia elétrica de cada mercado. Nesse sentido, buscando auxiliar a tomada de decisão do consumidor potencialmente livre, ocorreu o desenvolvimento da ferramenta web APLAC, que analisa o histórico de consumo de energia do usuário e retorna um relatório contendo o melhor cenário possível de contração no ambiente livre considerando um portfólio de contratos bilaterais, que podem ser escolhidos pelo próprio usuário. Juntamente com esse cenário a ferramenta calcula o preço mínimo (preço de indiferença) podendo podendo viabilizar uma possível migração ao ambiente livre.
+						</p>
+						<p class="text-justify">A ferramenta on-line está hospedada em uma máquina virtual, com o sistema operacional Ubuntu 16.04.2 LTS, que foi integrada ao servidor. As principais utilidades utilizadas pela máquina virtual para o funcionamento da ferramenta computacional são:<br>
+							•   AngularJS <i>Framework</i>;<br>
+							•   Bootstrap <i>Framework</i>;<br>
+							•   ChartJS <i>Framework</i>;<br>
+							•   Handsontable;<br>
+							•   mPDF;<br>
+							•   SGBD MariaDB;<br>
+							•	APIs implementadas por meio do <i>Micro Framework Slim</i> para que o usuário final possa obter as informações de forma rápida via <i>AJAX (Asynchronous Javascript and XML)</i>;<br>
+							•   Algoritmos desenvolvidos em JavaScript;<br>
+							•   Algoritmos desenvolvidos em PHP;<br>
+							•	SGBD MariaDB para gerenciar os dados necessários, principalmente financeiros;<br><br>
+
+							A ferramenta computacional está estruturada no formato dashboard e as informações provenientes dos dados estão apresentadas de forma gráfica, com a ajuda de plugins baseados em JavaScript, e que apresentem responsividade na aplicação. Dessa forma, a experiência proporcionada ao usuário será mais dinâmica e amigável. O desenvolvimento backend da ferramenta deve ser capaz de processar dados de consumo de energia elétrica, carga tributária, tarifas de uso, restrições contratuais, entre outros aspectos.<br>
+						</p>
+						<p class="text-justify"> Em relação a otimização, foi selecioado o <i>GLPK (GNU Linear Programming Kit)</i>, que é um <i>MILPS (Mixed-Integer Linear Program Solver)</i>, usado para solução de problemas do tipo inteiro misto. O GLPK é compilado por meio do GNU Octave, que é software livre similar ao MATLAB. O GLPK e o Octave são iniciativas GNU, que busca desenvolver softwares de código aberto com a mesma qualidade de softwares de iniciativa privada.
+						</p>
+						<p class="text-justify">As logos (com seus respectivos <i>links</i>) das utilidades exploradas na ferramenta são as seguintes:</p>
+					</div>
+
+					<div class="text-center">
+						<div style="display: inline-flex;">
+							<a href="https://angularjs.org/" target="_blank" ><img id="lAng" width="160" height="160" style="padding: 5%;" src="app/imgs/logo_angularjs.png"/><label style="display:block;">Angular Js</label></a>
+							<a href="https://getbootstrap.com/" target="_blank"><img id="lBoot" width="160" height="160" style="padding: 5%;" src="app/imgs/logo_bootstrap.png"/><label style="display:block;">Bootstrap</label></a>
+							<a  href="https://handsontable.com/" target="_blank"><img id="lHand" width="160" height="160" style="padding: 5%;" src="app/imgs/logo_handsontable.png"/><label style="display:block;">Handsontable</label></a>
+							<a href="https://www.gnu.org/software/octave/" target="_blank"><img id="lOct" width="150" height="150" style="padding: 5%;" src="app/imgs/logo_octave.png"/><label style="display:block;">Octave</label></a>
+							<a href="https://github.com/mpdf/mpdf" target="_blank"><img id="lMpdf" width="160" height="160" style="padding: 5%;" src="app/imgs/logo_mpdf.png"/><label style="display:block;">mPdf</label></a>
+							<a href="https://www.gnu.org/" target="_blank"><img id="lGnu"  width="160" height="160" style="padding: 5%;" src="app/imgs/logo_gnu.png"/><label style="display:block;">Gnu</label></a>
+						</div>	
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-10 col-md-offset-1">
+						<p class="text-center">Para maior entendimento de como foi desenvolvida a ferramenta observe a documentação:</p>
+						<a ng-click="openDoc();" target="_blank">	
+							<div class="text-center">
+								<button type="button" class="btn button-preto"><span class="glyphicon glyphicon-paperclip" aria-hidden="true"></span> Documentação</button>
+							</div>
+						</a>
+					</div>
+				</div>
+			</br></br>
+		</div>
+		<div ng-controller="contratosCtrl" ng-init="opcao='id';contratoSelect=true;aba1Select=true;">	
+			<div class="row">
+				<div class="col-md-offset-5">
+					<ul class="nav nav-tabs">
+					  <li role="presentation" ng-class="{active:aba1Select}"><a ng-click="contratoSelect=true;aba1Select=true;aba2Select=false;" href="" ><h4>Contratos do Sistema I</h4></a></li>
+					  <li role="presentation" ng-class="{active:aba2Select}"><a  ng-click="contratoSelect=false;aba2Select=true;aba1Select=false;" href=""><h4>Contratos do Sistema II</h4></a></li>
+					</ul>
+				</div>
+				
+			</div>
+
+			  <div class="panel panel-info" style="border-color: grey;">
+			 	<div class="panel-heading" style="border-bottom:none; font-size: 14pt;color: #565656;background-color: white;border-color: grey;"><p align="center">Quantidade por Preço de contrato</p></div>
+			    <div class="panel-body" style="margin-top: -30px;">
+			    <button type="button" class="btn btn-default col-md-offset-10 " data-toggle="modal" data-target=".bs-example-modal-lg"><span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></button>
+			    	<div id="sistema1" ng-show="contratoSelect">
+				    	<div class="row">
+					    	<div class="col-md-8 col-md-offset-2">
+								<canvas id="doughnut" class="chart chart-doughnut"
+								  chart-data="data" chart-labels="labels" chart-series="labels" chart-options="options1">
+								</canvas> 
+							</div>
+						</div>
+						<br>
+							<div class="row">
+								<div class="col-md-6">
+									<canvas id="doughnutSazo" class="chart chart-doughnut"
+									  chart-data="dataS" chart-labels="labelsS" chart-series="labelsS" chart-options="options2">
+									</canvas>
+								</div> 
+								<div class="col-md-6">
+									<canvas id="doughnutFlex" class="chart chart-doughnut"
+									  chart-data="dataF" chart-labels="labelsF" chart-series="labelsF" chart-options="options3">
+									</canvas> 
+								</div>
+							</div>
+					</div>
+					<div id="sistema2" ng-hide="contratoSelect">
+				    	<div class="row">
+					    	<div class="col-md-8 col-md-offset-2">
+								<canvas id="doughnut" class="chart chart-doughnut"
+								  chart-data="data2" chart-labels="labels2" chart-series="labels2" chart-options="options12">
+								</canvas> 
+							</div>
+						</div>
+						<br>
+							<div class="row">
+								<div class="col-md-6">
+									<canvas id="doughnutSazo" class="chart chart-doughnut"
+									  chart-data="dataS2" chart-labels="labelsS2" chart-series="labelsS2" chart-options="options22">
+									</canvas>
+								</div> 
+								<div class="col-md-6">
+									<canvas id="doughnutFlex" class="chart chart-doughnut"
+									  chart-data="dataF2" chart-labels="labelsF2" chart-series="labelsF2" chart-options="options23">
+									</canvas> 
+								</div>
+							</div>
+					</div>		
+
+
+			    </div>
+			  </div>
+			  
+			  <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+				  <div class="modal-dialog modal-lg" role="document">
+				    <div class="modal-content col-md-10 col-md-offset-1">
+				      <div class="modal-header">
+				       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					  	 <h4 class="modal-title"><p ng-show="contratoSelect">Contratos I</p><p ng-hide="contratoSelect">Contratos II</p></h4>
+					  </div>
+				      <div class="row">
+						<div class="col-md-4 col-md-offset-2">
+							<select ng-model="opcao" class="form-control">
+								<option value="id" selected="selected">POSIÇÃO</option>
+								<option value="PRECO_CONTRATO">PREÇO DO CONTRATO </option>
+								<option value="MONTANTE_MENSAL">MONTANTE</option>
+								<option value="SAZONALIZACAO">SAZONALIZAÇÃO</option>
+								<option value="FLEXIBILIZACAO">FLEXIBILIZAÇÃO</option>
+							</select>
+						</div>
+						<div class="col-md-4">
+					<input type="text" name="filtro" class="form-control" ng-model="filtro">
+				</div>
+			</div>
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">PREÇO DO CONTRATO (R$/MWH)</th>
+						<th scope="col" title="Passível de alteração mediante ao fator de multiplicação.">MONTANTE (MWH) <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></th>
+						<th scope="col">SAZONALIZAÇÃO (%)</th>
+						<th scope="col">FLEXIBILIZAÇÃO (%)</th>
+					</tr>
+				</thead>
+				<tbody ng-show="contratoSelect">
+						<tr ng-repeat="contrato in contratos | filter:getFilter() as results">
+							<th scope="row">{{contrato.id}}</th>
+							<td>{{contrato.PRECO_CONTRATO | currency:'R$'}}</td>
+							<td>{{contrato.MONTANTE_MENSAL | number:4}}</td>
+							<td>±{{contrato.SAZONALIZACAO}}</td>
+							<td>±{{contrato.FLEXIBILIZACAO}}</td>
+						</tr>
+				</tbody>
+				<tbody ng-hide="contratoSelect">
+					<tr ng-repeat="contrato2 in contratosr | filter:getFilter() as results">
+							<th scope="row">{{contrato2.id}}</th>
+							<td>{{contrato2.PRECO_CONTRATO | currency:'R$'}}</td>
+							<td>{{contrato2.MONTANTE_MENSAL | number:4}}</td>
+							<td>±{{contrato2.SAZONALIZACAO}}</td>
+							<td>±{{contrato2.FLEXIBILIZACAO}}</td>
+					</tr>
+				</tbody>
+			</table>
+			<div ng-if="results.length === 0" class="text-center">
+				<strong>Sem resultados...</strong>
+			</div>
+				    </div>
+				  </div>
+				</div>
+			
+		</div>
+	</div>
+</div>
+</body>
+</html>

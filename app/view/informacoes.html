@@ -1,0 +1,51 @@
+<div ng-controller="infoCtrl" ng-init="opcao='DATA'" class="container">
+	<div class="row"> 
+		<div class="col-md-10">
+			<h1 class="text-center">PLD (R&#36/MWh)</h1>
+			<div class="text-center">
+				<a target='_blank' href="https://www.ccee.org.br/portal/faces/pages_publico/o-que-fazemos/como_ccee_atua/precos/precos_medios?_afrLoop=167147694129888#!%40%40%3F_afrLoop%3D167147694129888%26_adf.ctrl-state%3D1191pbh1m7_4">Fonte</a>
+			</div>
+			<div>
+				<canvas id="bar" class="chart chart-bar"
+				chart-data="data" chart-labels="datasPld" chart-series="series" chart-options="options" chart-colors="colors"> chart-series="series"
+				</canvas >
+			</div>
+
+			<div class="col-md-4 col-md-offset-2">
+				<select ng-model="opcao" class="form-control">
+					<option value="DATA" selected="selected">DATA</option>
+					<option value="S">S</option>
+					<option value="SE_CO">SE_CO</option>
+					<option value="N">N</option>
+					<option value="NE">NE</option>
+				</select>
+			</div>
+			<div class="col-md-4">
+				<input type="text" name="filtro" class="form-control" ng-model="filtro">
+			</div>
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th scope="col">DATA</th>
+						<th scope="col">S</th>
+						<th scope="col">SE_CO</th>
+						<th scope="col">N</th>
+						<th scope="col">NE</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="plds in pld | filter:getFilter() as results">
+						<th class="text-center" scope="row">{{plds.DATA | date:"MM/y"}}</th>
+						<td>{{plds.S}}</td>
+						<td>{{plds.SE_CO}}</td>
+						<td>{{plds.N}}</td>
+						<td>{{plds.NE}}</td>
+					</tr>
+				</tbody>
+			</table>
+			<div ng-if="results.length === 0" class="text-center">
+				<strong>Sem resultados...</strong>
+			</div>
+		</div>
+	</div>
+</div>

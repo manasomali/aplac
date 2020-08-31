@@ -1,0 +1,38 @@
+<div ng-controller="infoCtrl" ng-init="opcao='DATA'" class="container">
+	<div class="row">
+		<div class="col-md-10 col-md-offset-1">
+			<h1 class="text-center">Sobre o Mercado de Energia Brasileiro</h1>
+			<p class="text-justify">A regulamentação do setor elétrico brasileiro está em constante evolução, ao passo que várias leis, decretos e normas são criadas e atualizadas no sentido de incentivar a competição, a sustentabilidade e a segurança da comercialização de energia elétrica no Brasil. Neste sentido, o mercado de energia elétrica foi segmentado em dois ambientes de contratação distintos, um regulado e outro livre. 
+			</p>
+			<div class="text-center">
+				<img class="img-fluid" alt="Responsive image" width="75%" src="app/imgs/ambientes.jpg"/>
+			</div></br>
+			<p class="text-justify">Pode-se observar pela ótica do consumidor que existem duas opções, estar no ACR (consumidor cativo) ou estar no ACL (consumidor livre). No entanto, apenas  os  consumidores  potencialmente  livres  podem optar pela migração  do ACR para o ACL, conforme condições apresentadas:
+			</p>
+			<div class="text-center">
+				<img width="50%" class="img-fluid" alt="Responsive image" src="app/imgs/condicao.png"/>
+			</div></br>
+			<p class="text-justify">
+				Os demais consumidores devem permanecer como consumidores cativos no ACR. Neste sentido, esta ferramenta on-line auxilia determinado consumidor ou consultor (<i>broker</i>), no gerenciamento de contratos de compra de energia elétrica. A usabilidade da 
+				ferramenta é voltada à obtenção de comparativos financeiros entre diferentes modalidades contratuais, cada qual com características
+				específicas, como preço, reajuste, sazonalização (distribuição do volume anual de energia elétrica nos meses do ano) e flexibilização. 
+			</p>
+		</div>						
+	</div>
+	<div class="row"> 
+		<div class="col-md-10 col-md-offset-1">
+			<h3 class="text-center">PLD (R&#36/MWh)</h3>
+			<div class="text-center">
+				<a target='_blank' href="https://www.ccee.org.br/portal/faces/pages_publico/o-que-fazemos/como_ccee_atua/precos/precos_medios?_afrLoop=167147694129888#!%40%40%3F_afrLoop%3D167147694129888%26_adf.ctrl-state%3D1191pbh1m7_4">Fonte</a>
+			</div>
+			<div>
+				<p class="text-justify">
+					A CCEE realiza mensalmente o cálculo da média mensal do Preço de Liquidação das Diferenças (PLD), por submercado. O cálculo considera os preços semanais por patamar de carga - leve, médio e pesado - ponderado pelo número de horas em cada patamar e em cada semana do mês.
+				</p>
+				<canvas id="bar" class="chart chart-bar"
+				chart-data="data" chart-labels="datasPld" chart-series="series" chart-options="options" chart-colors="colors"> chart-series="series"
+			</canvas >
+		</div>
+	</div>
+</div>
+</div>

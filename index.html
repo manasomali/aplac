@@ -1,0 +1,252 @@
+<html ng-app="myApp" ng-controller="indexCtrl">
+<head>
+  <script src="app/lib/jquery/dist/jquery.js"></script>
+  <script src="app/lib/angular/angular.js"></script>
+  <script src="app/lib/angular/angular-route.js"></script>
+  <script src="app/lib/angular/ngStorage/ngStorage.js"></script>
+  <script src="app/js/app.js"></script>
+  <script src="app/js/controller/indexCtrl.js"></script>
+  <script src="app/js/controller/sobreCtrl.js"></script>
+  <script src="app/js/controller/tutorialCtrl.js"></script>
+  <script src="app/js/controller/mercadoCtrl.js"></script>
+  <script src="app/js/controller/aplacCtrl.js"></script>
+  <script src="app/js/controller/contratosCtrl.js"></script>
+  <script src="app/js/controller/contatoCtrl.js"></script>
+  <script src="app/js/controller/meu_portfolioCtrl.js"></script>
+  <script src="app/js/controller/infoCtrl.js"></script>
+  <script src="app/js/controller/funcoes_aux.js"></script>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link href="app/lib/bootstrap/css/bootstrap.css" rel="stylesheet" id="bootstrap-css">
+  <script src="app/lib/bootstrap/js/bootstrap.js"></script>
+  <link href="app/css/sidebar.css" rel="stylesheet">
+  <link href="app/css/navbar.css" rel="stylesheet">
+  <link href="app/css/contato.css" rel="stylesheet">
+  <link href="app/css/botoes.css" rel="stylesheet">
+  <link href="app/css/aplac.css" rel="stylesheet">
+  <link href="app/css/info.css" rel="stylesheet">
+  <!-- icones -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <!-- planilha online -->
+  <script src="app/lib/handsontable-master/dist/handsontable.full.js"></script>
+  <link rel="stylesheet" media="screen" href="app/lib/handsontable-master/dist/handsontable.full.css">
+  <!-- chartjs --> 
+  <script src="app/lib/chartjs/Chart.js"></script>   
+  <script src="app/lib/chartjs/angular-chart.js"></script>
+  <script src="app/lib/chartjs/zoom/chartjs-plugin-zoom.js"></script>
+  <script src="app/lib/chartjs/palette.js"></script>
+
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.1/angular-cookies.min.js"></script>
+
+
+
+
+  <title>APLAC - Aplicativo para Otimização de Contratos</title>
+</head>
+<body>
+  <div class="left">
+    <div class="itemMenu">
+      <img src="app/imgs/logo_gese.png" width="70px;" height="60px; ">
+    </div>
+    <a href="#!mercadodeenergia">
+      <div class="item">
+        <span class="glyphicon glyphicon-briefcase"></span>
+        Sobre o Mercado de Energia no Brasil
+      </div>
+    </a>
+    <a href="#!sobreaferramenta">
+      <div class="item active">
+        <span class="glyphicon glyphicon-wrench"></span>
+        Sobre a Aplicação
+      </div>
+    </a>
+    <a href="#!tutorial">
+      <div class="item active">
+        <span class="glyphicon glyphicon-comment"></span>
+        Tutorial
+      </div>
+    </a>
+    <a href="#!portfoliopessoal">
+      <div class="item">
+        <span class="glyphicon glyphicon-list"></span>
+        Portfólio Pessoal
+      </div>
+    </a>
+    <a href="#!aplac">
+      <div class="item">
+        <span class="glyphicon glyphicon-stats"></span>
+        APLAC
+      </div> 
+    </a>
+    <a href="#!contato">
+      <div class="item">
+        <span class="glyphicon glyphicon-phone-alt"></span>
+        Contato
+      </div>    
+    </a>
+  </div>
+  <div class="all">
+    <div class="view">
+      <div class="col-md-8 col-md-offset-2">
+        <div ng-view></div>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class="row">
+        <div class="col-md-offset-7">
+          <div ng-hide="usuario.status">
+            <button type="button" class="btn button-preto" data-toggle="modal" data-target="#mylog">
+              <span class="glyphicon glyphicon-user"></span> Login
+            </button>
+          </div>
+          <div ng-show="usuario.status">
+            <ul class="nav navbar-nav">
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown">{{usuario.nome | uppercase}} {{usuario.sobrenome | uppercase}} <span class="glyphicon glyphicon-user pull-right"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#!configConta">Alterar Senha<span class="glyphicon glyphicon-cog pull-right"></span></a></li>
+                  <li class="divider"></li>
+                  <li><a href="#">Status do usuario<span class="glyphicon glyphicon-stats pull-right"></span></a></li>
+                  <li class="divider"></li>
+                  <li><a ng-click="logout();">Encerrar sessão <span class="glyphicon glyphicon-log-out pull-right"></span></a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+<div class="modal fade" id="mylog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+ <div id="login-overlay" class="modal-dialog" ng-init="registro.status=false">
+  <div class="modal-content" ng-hide="registro.status">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+        <span class="sr-only">Close</span>
+      </button>
+      <h4 class="modal-title" id="myModalLabel">Login APLAC</h4>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-xs-6">
+          <div class="well">
+            <form id="loginForm">
+              <div class="form-group">
+                <label for="username" class="control-label">Usuário</label>
+                <input type="text" class="form-control" ng-model="login.usuario" id="username" name="username" value="" required title="Please enter you username" placeholder="example@gmail.com">
+                <span class="help-block"></span>
+              </div>
+              <div class="form-group">
+                <label for="password" class="control-label">Senha</label>
+                <input type="password" class="form-control" ng-model="login.senha" id="password" name="password" value="" required title="Please enter your password">
+                <span class="help-block"></span>
+              </div>
+              <div id="loginErrorMsg" class="alert alert-error hide">Wrong username og password</div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" name="remember" id="remember">Lembrar login <p class="text-center">
+                </label>
+                <a ng-click=""><p class="text-center"><small>Esqueceu sua senha?</small></p></a>
+              </div>
+              <button  ng-click="logar();" class="btn button-preto">Login</button>
+            </form>
+          </div>
+        </div>
+        <div class="col-xs-6">
+          <p class="lead text-center">Registre-se</p>
+          <ul class="list-unstyled" style="line-height: 2">
+            <li><span class="fa fa-check text-success"></span></li>
+            <li><span class="fa fa-check text-success"></span></li>
+            <li><span class="fa fa-check text-success"></span></li>
+            <li><span class="fa fa-check text-success"></span></li>
+            <li><span class="fa fa-check text-success"></span><br></li>
+          </ul>
+          <div class="col-md-offset-3">
+            <p><a ng-click="registro.status=!registro.status" class="btn button-preto">Registrar</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-content" ng-show="registro.status">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+        <span class="sr-only">Close</span>
+      </button>
+      <h4 class="modal-title" id="myModalLabel">Registro APLAC</h4>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <a ng-click="registro.status=!registro.status"><p class="text-center"><small>Já possui cadastro?</small></p></a>
+        <form class="form-horizontal" ng-submit="registrar();">
+          <fieldset>
+           <div class="form-group">
+             <label class="col-md-4 control-label" for="textinputr">Usuário</label>  
+             <div class="col-md-4">
+              <input id="usuarior" name="textinputr" ng-model="registro.usuario" type="text" placeholder="JoaoSilva" class="form-control input-md" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="textinputr">Nome</label>  
+            <div class="col-md-4">
+              <input id="textinputr" name="textinputr" ng-model="registro.nome" type="text" placeholder="João" class="form-control input-md" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="textinputsr1">Sobrenome</label>  
+            <div class="col-md-4">
+              <input id="textinputsr1" name="textinputsr1" ng-model="registro.sobrenome" type="text" placeholder="Silva" class="form-control input-md" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="textinputsr2">Ocupação</label>  
+            <div class="col-md-4">
+              <input id="textinputsr2" name="textinputsr2" ng-model="registro.ocupacao" type="text" placeholder="Estudante" class="form-control input-md" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="textinputsr3">Instituição</label>  
+            <div class="col-md-4">
+              <input id="textinputsr3" name="textinputsr3" ng-model="registro.instituicao" type="text" placeholder="IFSC" class="form-control input-md" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="textinputsr4">Cargo</label>  
+            <div class="col-md-4">
+              <input id="textinputsr4" name="textinputsr4" ng-model="registro.cargo" type="text" placeholder="Estágiario" class="form-control input-md" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="emailr">E-mail</label>  
+            <div class="col-md-4">
+              <input id="emailr" name="emailr" ng-model="registro.email" type="email" placeholder="joao.silva@mail.com" class="form-control input-md" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="passwordinputr">Senha</label>
+            <div class="col-md-4">
+              <input id="passwordinputr" name="passwordinputr" ng-model="registro.senha" type="password" placeholder="Digite sua senha" class="form-control input-md" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="passwordinputcr">Confirme a Senha </label>
+            <div class="col-md-4">
+              <input id="passwordinputcr" name="passwordinput" ng-model="registro.senhac" type="password" placeholder="Repita sua senha" class="form-control input-md" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-4  control-label" for="singlebutton"></label>
+            <div class="col-md-4 col-md-2">
+              <button id="singlebutton" name="singlebutton" type="submit" class="btn button-preto">Registrar</button>
+            </div>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+</html>
+

@@ -1,0 +1,35 @@
+<div nq-app="myApp" ng-controller="indexCtrl" class="container">
+	
+	<form class="form-horizontal" ng-submit="alterarSenha();">
+		<div class="col-md-offset-4">
+			<h1>Alterar Senha {{login.senha}}</h1>
+			<br>
+		</div>
+		<fieldset>
+			<div class="form-group">
+		            <label class="col-md-4 control-label" for="textinputr">Senha atual</label>  
+		            <div class="col-md-4">
+		              <input id="senha" name="senha" ng-model="alterarSenha.senha" type="password"  class="form-control input-md" required>
+		            </div>
+		          </div>
+		          <div class="form-group">
+		            <label class="col-md-4 control-label" for="textinputr">Nova senha</label>  
+		            <div class="col-md-4">
+		              <input id="nsenha" name="nsenha" ng-model="alterarSenha.nsenha" type="password"  class="form-control input-md" required>
+		            </div>
+		          </div>
+		          <div class="form-group">
+		            <label class="col-md-4 control-label" for="textinputr">Confirme a senha</label>  
+		            <div class="col-md-4">
+		              <input id="csenha" name="csenha" ng-model="alterarSenha.csenha" type="password"  class="form-control input-md" required>
+		            </div>
+		          </div>
+		          <div class="form-group">
+		            <label class="col-md-4  control-label" for="singlebutton"></label>
+		            <div class="col-md-4 col-md-2">
+		              <button id="singlebutton" name="alterar" type="submit" class="btn button-preto">Alterar</button>
+		            </div>
+		          </div>
+			</div>
+		</fieldset>
+	<form>

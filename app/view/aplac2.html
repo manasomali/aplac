@@ -1,0 +1,335 @@
+<div nq-app="myApp" ng-controller="aplacCtrl" class="container" ng-init="iniciar();">
+	<div class="row">		
+		<h1 class="col-md-offset-4" style="padding-left: 7%;">APLAC</h1>
+		<div class="col-md-7 col-md-offset-2">
+			<p class="text-justify">
+				Nessa página o você pode simular possiveis situações buncando verificar uma possivel migração para o ambinete livre. Você tem a possibilidade de usar a ferramenta de quatro formas no que diz respeito a entrada de dados:<br>
+				<span class="glyphicon glyphicon-chevron-right"></span> Somente consumos<br>
+				<span class="glyphicon glyphicon-chevron-right"></span> Somente consumos e PLD<br>
+				<span class="glyphicon glyphicon-chevron-right"></span> Datas, Consumos e Demandas<br>
+				<span class="glyphicon glyphicon-chevron-right"></span> Datas, Consumos, Demandas e PLD<br>
+				Dependendo da possibilidade a aplicação vai expor resultados mais completos. Caso deixe a opção PLD vazia o sistema assumirá aversão a exposição ao mercado de curto prazo. Caso deseje saber o Preço de Indiferença será necessária a entrada das cinco primeiras colunas obrigatoriamente.
+				<br><br>
+				Nas opções avançadas é possível alterar alguns parâmetros do sistema. Como: A contribuição a CEE, o imposto ICMS, o valor relacionado aos Encargos de Serviços do Sistema (ESS), as perdas K e o fator de multiplicação F que é o valor que será multiplicado pelas demandas dos contratos do sistema superiores a média do seu consumo&#013; [0.1 &le; F &le; 1]. 
+			</p>
+		</div>
+	</div>
+	<div ng-show="usuario.status">
+		<div class="row">
+			<div class="col-md-offset-9">
+				<button type="button" class="button-preto btn-sm" data-target="#confAvanModal" data-toggle="modal">
+					<span class="glyphicon glyphicon-wrench"></span>
+				</button>
+			</div>	
+		</div>
+		<div class="modal fade" id="confAvanModal" role="dialog">
+			<div class="modal-dialog modal-sm">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">x</span>
+							<span class="sr-only">Close</span>
+						</button>
+						<h4 class="modal-title text-center" id="myModalLabel">Configurações Avançadas</h4>
+					</div>
+					<div class="modal-body">
+						<form class="form-horizontal">
+							<fieldset>
+								<div class="form-group">
+									<label class="col-md-6 control-label" for="CCEEinput">CCEE [R$/mês]:</label>  
+									<div class="col-md-4">
+										<input class="form-control input-sm" type="number" name="CCEEinput" placeholder="200" ng-model="CCEE"> 
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-6 control-label" for="ICMSinput">ICMS [%]:</label>  
+									<div class="col-md-4">
+										<input class="form-control input-sm" type="number" name="ICMSinput" placeholder="25" ng-model="ICMS">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-6 control-label" for="ESSinput">ESS [R$/MWh]:</label>  
+									<div class="col-md-4">
+										<input class="form-control input-sm" type="number" name="ESSinput" placeholder="3" ng-model="ESS">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-6 control-label" for="Kinput">K [%]:</label>  
+									<div class="col-md-4">
+										<input class="form-control input-sm" type="number" name="Kinput" placeholder="3" ng-model="K">
+									</div>
+								</div>
+								<div class="form-group" title="Fator de Multiplicação:&#013;Valor que será multiplicado pelas demandas dos contratos do sistema superiores a média do seu consumo&#013;[0.1 &le; F &le; 1]">
+									<label class="col-md-6 control-label" for="Finput">F:</label>  
+									<div class="col-md-4">
+										<input class="form-control input-sm" type="number" min="0.1" max="1" step="0.1" name="Finput" placeholder="0.5" ng-model="F">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-4 control-label" for="singlebutton1"></label>
+									<div class="col-md-4">
+										<button id="singlebutton1" name="singlebutton1" ng-click="setValoresAvancados();" class="button-preto button-sm">Enviar</button>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-4 control-label" for="singlebutton2"></label>
+									<div class="col-md-4">
+										<button id="singlebutton2" name="singlebutton2" ng-click="iniciar();" class="button-preto button-sm">Default</button>
+									</div>
+								</div>
+							</fieldset>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="row">
+				<div class="col-md-offset-3">
+					<div class="form-group col-md-8" style="margin-left: -20px;" ng-init="GMT='_A2_AZUL'">
+						<label for="sel1">Grupo e Modalidade Tarifária:</label>
+						<select class="form-control" id="sel1" ng-model="GMT" >
+							<option value="_A2_AZUL" selected="selected">A1 Azul</option>
+							<option value="_A2_AZUL">A2 Azul</option>
+							<option value="_A3_AZUL">A3 Azul</option>
+							<option value="_A3a_AZUL">A3a Azul</option>
+							<option value="_A3a_VERDE">A3a Verde</option>
+							<option value="_A4_AZUL">A4 Azul</option>
+							<option value="_A4_VERDE">A4 Verde</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-offset-4">
+					<label>
+						<input ng-model="cEspecial" type="checkbox" ng-init="cEspecial='false'" class="checkbox-custom"/><span> Consumidor Especial (Desconto na TUSDd)</span>
+					</label>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-offset-2">
+				<div id="entrada"  class="hot handsontable htColumnHeaders"></div>
+			</div>
+		</div>
+		<div class="row" >
+			<div class="col-md-6 col-md-offset-3">
+				<div class="col-md-offset-1">
+					<button type="button" class="btn button-preto" ng-click="clear();"> <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Limpar</button>
+					<button type="button" class="btn button-preto" ng-click="save();"> <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Salvar</button>
+					<button type="button" class="btn button-preto" ng-click="load();"> <span class="glyphicon glyphicon-upload
+						" aria-hidden="true"></span> Carregar</button>
+						<button type="button" class="btn button-preto" data-target="#gerar" data-toggle="modal"> <span class="glyphicon glyphicon-stats" aria-hidden="true"></span> Gerar</button>
+					</div>
+				</div>
+			</div>
+<!--
+			<div class="row">
+				<div class="col-md-6 col-md-offset-6" style="margin-top: 10px;">
+					<button type="button" class="button-preto btn-sm" ng-click=""><b>1</b></button>
+					<button type="button" class="button-preto btn-sm" ng-click=""><b>2</b></button>
+					<button type="button" class="button-preto btn-sm" ng-click=""><b>3</b></button>
+					<button type="button" class="button-preto btn-sm" ng-click=""><b>4</b></button>
+					<button type="button" class="button-preto btn-sm" ng-click=""><b>5</b></button>
+				</div>
+			</div>
+		-->
+		<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" id="gerar">
+			<div class="modal-dialog modal-sm" role="document">
+
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title"><p class="text-center">Portifólio de Contratos</p></h4>
+					</div>
+					<div class="modal-body">
+						<p class="text-center">Deseja utilizar o seu Portifólio pessoal de Contratos ou do sistema?</p>
+						<div class="col-md-offset-1">
+							<button type="button" class="btn btn-default" aria-label="Left Align" ng-click="setMod(1);">
+								<span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Portifólio I
+							</button>
+							<button type="button" class="btn btn-default" aria-label="Left Align" ng-click="setMod(2);">
+								<span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Portifólio II
+							</button>
+						</div>
+						<div class="col-md-offset-3">
+							<button type="button" class="btn btn-default col-md-offset-1" style="margin-top: 6px;" aria-label="Left Align" ng-click="setMod(3);">
+								<span class="glyphicon glyphicon-user" aria-hidden="true"></span> Pessoal
+							</button>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+		<div class="modal fade" id="myModal" data-backdrop="static" role="dialog" tabindex="-1" style="overflow:hidden"  >
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" ng-click="fechar();" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title text-center">Resultado {{segundos}}</h4><button type="button" class="btn btn-default"  ng-click="gerarPdf();">
+							<span class="
+							glyphicon glyphicon-save-file"></span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="container-fluid">
+							<div class="row" id="carregando">
+								<p class="text-center" style="padding-top:20%;">Aguarde um momento, o sistema está produzindo os resultados ...</p>
+								<div id="loader"></div> 
+							</div>
+							<div class="row" id="piArea">
+								<div class="col-md-offset-11">
+									<button type="button" class="btn btn-default" data-target="#modalPi" data-toggle="modal">
+										<span class="
+										glyphicon glyphicon-info-sign"></span>
+									</button>
+									<div id="aqui">
+									</div>
+								</div>
+								<div class="col-sm-12">
+									<canvas id="PIChart" width="600" height="400" class="chartjs-render-monitor"></canvas>
+								</div>
+								<img id="graphPi" />
+								<hr size="80%">
+							</div>
+							<div class="row"  id="g1Area">
+								<div class="col-md-offset-11">
+									<button type="button" class="btn btn-default" data-target="#modalG1" data-toggle="modal">
+										<span class="
+										glyphicon glyphicon-info-sign"></span>
+									</button>
+								</div>
+								<div class="col-sm-12">
+									<canvas id="chartJSContainer" width="600" height="400" class="chartjs-render-monitor"></canvas>
+
+								</div>
+								<div class="row" id="tabelaContratos">
+								</div>
+							</div>
+							<hr width="80%">
+							<div class="row" id="g2Area">
+								<div class="col-md-offset-11">
+									<button type="button" class="btn btn-default" data-target="#modalG2" data-toggle="modal">
+										<span class="
+										glyphicon glyphicon-info-sign"></span>
+									</button>
+								</div>
+								<div class="col-sm-12">
+									<canvas id="canvas_3" width="600" height="400" class="chartjs-render-monitor"></canvas>
+								</div>
+							</div>
+							<hr size="80%">
+							<div class="row" id="g3Area">
+								<div class="col-md-offset-11">
+									<button type="button" class="btn btn-default" data-target="#modalG3" data-toggle="modal">
+										<span class="
+										glyphicon glyphicon-info-sign"></span>
+									</button>
+								</div>
+								<div class="col-sm-12">
+									<canvas id="radarChart" width="600" height="400" class="chartjs-render-monitor"></canvas>
+								</div>
+							</div>
+							<div class="row" id="g4Area">
+								<div class="col-md-offset-11">
+									<button type="button" class="btn btn-default" data-target="#modalG4" data-toggle="modal">
+										<span class="
+										glyphicon glyphicon-info-sign"></span>
+									</button>
+								</div>
+								<div class="col-sm-12">
+									<canvas id="cargaChart" width="600" height="400" class="chartjs-render-monitor"></canvas>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<div ng-hide="usuario.status" class="alert alert-info col-md-8 col-md-offset-1">
+		<p class="text-center">
+			<strong>Efetue <a ng-click="registro.status=false" data-toggle="modal" data-target="#mylog" class="alert-link">Login</a>!</strong> 
+			<br><br>para utilizar essa ferramenta é necessário efetuar <a data-toggle="modal" ng-click="registro.status=false" data-target="#mylog" class="alert-link">Login</a>, caso ainda não possua, cadastre-se  <a ng-click="registro.status=true" data-toggle="modal"  data-target="#mylog" class="alert-link">Aqui</a> .
+		</p>
+	</div>
+	<div class="modal fade" tabindex="-1"   role="dialog" aria-labelledby="gridSystemModalLabel" id="modalPi">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="gridSystemModalLabel">Preço Indiferença</h4>
+				</div>
+				<div class="modal-body">
+					<p>O Preço de Indiferença, busca o preço médio mínimo para o custo da energia elétrica buscando viabilizar uma possível migração do Ambiente de Contratação Regulado (ACR) para o Ambiente de Contração Livre (ACL).
+					Como o valor do PI é o valor máximo de energia que o consumidor deve pagar no ACL, qualquer contratação superior ao valor do PI é inviável economicamente, portanto quanto maior o PI melhor para a migração, pois será mais fácil de encontrar contratos de compra de energia dentro do limite de lucratividade.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" tabindex="-1"  role="dialog" aria-labelledby="gridSystemModalLabel" id="modalG1">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="gridSystemModalLabel">Configuração de contratos no tempo</h4>
+				</div>
+				<div class="modal-body">
+					<p>
+						O gráfico de Configuração de contratos no tempo mostra quais contratos foram selecionados pela otimização juntamente com os valores de ajuste de demanda. Cada contrato possui um percentual de sazonalização e flexibilização, a ferramenta realiza o cálculo buscando ajustar sua demanda da melhor forma possível. O gráfico expõe os valores finais sazonalizados (linha pontilhada) e flexibilizados (blocos) para cada mês, juntamente com o consumo informado (linha contínua). Adicionamelmente se ocorrer compra de energia pelo Mercado de Curto Prazo (MCP), o montante comprado será exposto (bloco vermelho).
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" tabindex="-1"   role="dialog" aria-labelledby="gridSystemModalLabel" id="modalG2">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="gridSystemModalLabel">Percentuais de sazonalização, flexibilização e líquido</h4>
+				</div>
+				<div class="modal-body">
+					<p>
+						Como cada contrato possibiliza a uma sazonalização e flexibilização, é interessante expor como a alocação de consumo foi efetuada pela ferramenta. O gráfico de Percentual de sazonalização, flexibilização e líquido expõe isso. Nele evidenciamos quanto a demanda foi modificada em prol da melhor seleção de contratos possível.
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" tabindex="-1"   role="dialog" aria-labelledby="gridSystemModalLabel" id="modalG3">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="gridSystemModalLabel">Relevância no montante total por contrato</h4>
+				</div>
+				<div class="modal-body">
+					<p>
+						Os contratos selecionados pela otimização possuem demandas, que são somadas buscando a melhor combinação possível considerando seu perfil de consumo. O gráfico indicativo de relevância no montante total evidencia a participação de cada contrato no cenário gerado pela otimização. 
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" tabindex="-1"   role="dialog" aria-labelledby="gridSystemModalLabel" id="modalG4">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="gridSystemModalLabel">Curva de Carga</h4>
+				</div>
+				<div class="modal-body">
+					<p>
+						A sua Curva de Carga pode ser visualizada por esse gráfico de dois eixos. Nela exitem quatro conponentes, Consumo na ponta e fora da ponta (eixo esquerdo) e a Demanda na ponta e fora da ponta (eixo direito). O consumo refere-se ao montante de energia que foi efetivamtente consumido em MWh a demanda refere-se a demanda faturáda medida em MW.
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>

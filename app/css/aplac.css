@@ -1,0 +1,142 @@
+#table {
+	margin-top: 10px;
+	width: 70%;
+	border: 2px;
+	padding: 3px;
+	cursor: pointer;
+}
+/* Center the loader */
+#loader {
+  position: absolute;
+  left: 50%;
+  top:15%;
+  z-index: 1;
+  width: 150px;
+  height: 150px;
+  margin: -75px 0 0 -75px;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Add animation to "page content" */
+.animate-bottom {
+  position: relative;
+  -webkit-animation-name: animatebottom;
+  -webkit-animation-duration: 1s;
+  animation-name: animatebottom;
+  animation-duration: 1s
+}
+
+@-webkit-keyframes animatebottom {
+  from { bottom:-100px; opacity:0 } 
+  to { bottom:0px; opacity:1 }
+}
+
+@keyframes animatebottom { 
+  from{ bottom:-100px; opacity:0 } 
+  to{ bottom:0; opacity:1 }
+}
+
+#myDiv {
+  display: none;
+  text-align: center;
+}
+
+th {
+  text-align: center;
+}
+
+th, td {
+  border: 1px solid #CCC;
+  border: 1px solid #CCC;
+  height: 22px;
+  empty-cells: show;
+  line-height: 21px;
+  padding: 0 4px 0 4px;
+  background-color: #FFF;
+  vertical-align: top;
+  overflow: hidden;
+  outline-width: 0;
+  white-space: pre-line;
+}
+.handsontable table thead th {
+  white-space: normal!important;
+  background-color: black !important;
+  color:white !important;
+}
+.ht_clone_left th {
+  background-color: black !important;
+  color: white !important;
+}
+
+.checkbox-custom {
+  position: relative;
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  display: inline-block;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  outline: 0;
+}
+
+.checkbox-custom:after {
+  content: '';
+  position: absolute;
+  display: block;
+  z-index: 1;
+  width: 16px;
+  height: 16px;
+  border: 1px solid gray;
+  border-radius: 2px;
+}
+
+.checkbox-custom[type=checkbox]:before {
+  background: black;
+  background-size: 10px 8px;
+  background-repeat: no-repeat;
+  background-position: 3px 4px;
+  position: absolute;
+  left: 2px;
+  z-index: 2;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  color: black;
+}
+
+.checkbox-custom[type=checkbox]:checked:before {
+  content: '';
+  position: absolute;
+  top: 0px;
+  opacity: 1;
+  left: 0px;
+  border: 1px solid gray;
+  border-radius: 2px;
+}
+
+.modal-body{
+    max-height: 80%;
+    overflow-y: auto;
+}
